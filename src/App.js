@@ -1,25 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+// App.js
+import React, {useState} from 'react'
+import TextForm from './components/TextForm';
 
 function App() {
+  const [generatedText, setGeneratedText] = useState('');
+
+  const handleSubmit = async (text) => {
+    console.log('Handle submit called');
+
+    await fetch("/generate", {
+      method: "POST",
+      body: JSON.stringify({text}) 
+    });
+  
+    const response = await fetch("/generate");
+    const data = await response.json();
+  
+    setGeneratedText(data.generated);
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <div><TextForm onSubmit={handleSubmit} /></div>
   );
+
 }
 
 export default App;
