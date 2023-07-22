@@ -6,9 +6,12 @@ import React, {useState} from 'react'
 const TextForm = ({ onSubmit }) => {
 
     const [text, setText] = useState('');
-    const handleFormSubmit = () => {
+    
+    const handleFormSubmit = (e) => {
+        e.preventDefault(); // Prevent the default form submission behavior
         onSubmit(text);
-        setText('');
+        console.log('Making API call to /handle'); // log message
+
       }
       
     return (
